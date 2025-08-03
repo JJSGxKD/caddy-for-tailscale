@@ -1,0 +1,19 @@
+
+# DOMAIN Заменить на адрес девайса в Tailscale например: "https://desktop.tail908.ts.net"
+https://DOMAIN {
+	tls off
+	# Ниже перечислены пути которые проксируются на нужный порт
+	# Например адресс извне "https://desktop.tail908.ts.net/api" просто будет "localhost:3000"
+	# "/api*" заменить на удобный путь например: "/unity*", "/app*" и тд.
+  handle_path /api* {
+			# 3000 заменить на порт, на котором работает приложение
+    reverse_proxy localhost:3000
+  }
+		# Далее по той же методике для других приложений, если запущино только одно, другие модно удалить или закоментирвоать!
+  handle_path /ws* {
+    reverse_proxy localhost:3001
+  }
+  handle_path /pgadmin* {
+    reverse_proxy localhost:5050
+  }
+}
